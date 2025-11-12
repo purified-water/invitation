@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { InvitationTemplate } from "../components/templates/InvitationTemplate";
+import { LoadingScreen } from "../components/ui";
 import { invitationService } from "../services/invitationService";
 import type { Invitation } from "../types";
 
@@ -11,6 +12,7 @@ export const InvitationScreen: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    document.title = "You got invited!";
     const loadInvitation = async () => {
       if (!id) {
         setError("Invalid invitation ID");
@@ -37,14 +39,7 @@ export const InvitationScreen: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading invitation...</p>
-        </div>
-      </div>
-    );
+    return <LoadingScreen text="Đợi xíuuu" />;
   }
 
   if (error || !invitation) {

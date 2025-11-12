@@ -21,41 +21,80 @@ export const invitationService = {
     invitationData: Omit<Invitation, "id" | "createdAt" | "updatedAt">
   ): Promise<string> {
     const now = new Date().toISOString();
+    const customId = uuidv4();
     const newInvitation: Invitation = {
       ...invitationData,
-      id: uuidv4(),
+      id: customId,
       createdAt: now,
       updatedAt: now,
     };
 
-    const docRef = await addDoc(collection(db, COLLECTION_NAME), newInvitation);
-    return docRef.id;
+    await addDoc(collection(db, COLLECTION_NAME), newInvitation);
+    // Return the custom UUID instead of Firestore document ID
+    return customId;
   },
 
   // Get invitation by ID
   async getById(id: string): Promise<Invitation | null> {
+    // First try to get by document ID
     const docRef = doc(db, COLLECTION_NAME, id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       return docSnap.data() as Invitation;
     }
+
+    // If not found, search by the custom ID field
+    const q = query(collection(db, COLLECTION_NAME));
+    const querySnapshot = await getDocs(q);
+
+    for (const doc of querySnapshot.docs) {
+      const data = doc.data() as Invitation;
+      if (data.id === id) {
+        return data;
+      }
+    }
+
     return null;
   },
 
   // Update invitation
   async update(id: string, updates: Partial<Invitation>): Promise<void> {
-    const docRef = doc(db, COLLECTION_NAME, id);
-    await updateDoc(docRef, {
-      ...updates,
-      updatedAt: new Date().toISOString(),
-    });
+    // Find document by custom ID
+    const q = query(collection(db, COLLECTION_NAME));
+    const querySnapshot = await getDocs(q);
+
+    for (const document of querySnapshot.docs) {
+      const data = document.data() as Invitation;
+      if (data.id === id) {
+        const docRef = doc(db, COLLECTION_NAME, document.id);
+        await updateDoc(docRef, {
+          ...updates,
+          updatedAt: new Date().toISOString(),
+        });
+        return;
+      }
+    }
+
+    throw new Error(`Invitation with ID ${id} not found`);
   },
 
   // Delete invitation
   async delete(id: string): Promise<void> {
-    const docRef = doc(db, COLLECTION_NAME, id);
-    await deleteDoc(docRef);
+    // Find document by custom ID
+    const q = query(collection(db, COLLECTION_NAME));
+    const querySnapshot = await getDocs(q);
+
+    for (const document of querySnapshot.docs) {
+      const data = document.data() as Invitation;
+      if (data.id === id) {
+        const docRef = doc(db, COLLECTION_NAME, document.id);
+        await deleteDoc(docRef);
+        return;
+      }
+    }
+
+    throw new Error(`Invitation with ID ${id} not found`);
   },
 
   // Get all invitations

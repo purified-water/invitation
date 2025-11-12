@@ -1,11 +1,11 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { AdminScreen, InvitationScreen } from "./screens";
-import "./App.css";
+  AdminScreen,
+  InvitationScreen,
+  CreateInvitationScreen,
+  EditInvitationScreen,
+  HomeScreen,
+} from "./screens";
 
 function App() {
   return (
@@ -13,14 +13,16 @@ function App() {
       <div
         className="App"
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "#f9fafb",
           minHeight: "100vh",
-          color: "#213547",
+          color: "#374151",
         }}
       >
         <Routes>
-          <Route path="/" element={<Navigate to="/admin" replace />} />
+          <Route path="/" element={<HomeScreen />} />
           <Route path="/admin" element={<AdminScreen />} />
+          <Route path="/admin/create" element={<CreateInvitationScreen />} />
+          <Route path="/admin/edit/:id" element={<EditInvitationScreen />} />
           <Route path="/invitation/:id" element={<InvitationScreen />} />
         </Routes>
       </div>
