@@ -51,7 +51,9 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
 
   return (
     <div
-      className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200 cursor-pointer group"
+      className={`bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200 cursor-pointer group ${
+        invitation.isSpecial ? "ring-1 ring-orange-500" : ""
+      }`}
       onClick={() => onPreview(invitation.id)}
     >
       {/* Header với template emoji */}
@@ -65,7 +67,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
               {invitation.title}
             </h3>
             {invitation.subtitle && (
-              <p className="text-sm text-gray-500 mt-1 truncate">
+              <p className="text-sm text-gray-500 mt-1 line-clamp-1">
                 {invitation.subtitle}
               </p>
             )}
