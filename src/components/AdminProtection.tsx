@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { Button, Input, LoadingScreen } from "./ui";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useVocCode } from "../hooks/useVocCode";
-import { DontVooc } from "./ui/DontVooc";
+import { DontVoc } from "./ui/DontVooc";
 
 interface AdminProtectionProps {
   children: React.ReactNode;
@@ -17,6 +17,8 @@ export const AdminProtection: React.FC<AdminProtectionProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [showDontVoc, setShowDontVoc] = useState(false);
   const { handleTextClick, showFullscreen } = useVocCode();
 
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
@@ -38,8 +40,24 @@ export const AdminProtection: React.FC<AdminProtectionProps> = ({
     if (password === ADMIN_PASSWORD) {
       Cookies.set(AUTH_COOKIE, "true", { expires: 30 });
       setIsAuthenticated(true);
+      setFailedAttempts(0); // Reset failed attempts on success
     } else {
-      setError("Incorrect password. Please try again.");
+      const newFailedAttempts = failedAttempts + 1;
+      setFailedAttempts(newFailedAttempts);
+
+      if (newFailedAttempts >= 3) {
+        setShowDontVoc(true);
+        // Reset after showing DontVoc for a while
+        setTimeout(() => {
+          setShowDontVoc(false);
+          setFailedAttempts(0);
+          setError("Too many failed attempts. Try again.");
+        }, 3000);
+      } else {
+        setError(
+          `Incorrect password. Please try again. (${newFailedAttempts}/3 attempts)`
+        );
+      }
       setPassword("");
     }
   };
@@ -79,12 +97,14 @@ export const AdminProtection: React.FC<AdminProtectionProps> = ({
                   }
                   placeholder="Enter admin password"
                   required
+                  disabled={showDontVoc}
                   className="pr-12"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  disabled={showDontVoc}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
                 >
                   {showPassword ? (
                     <EyeSlashIcon className="h-5 w-5" />
@@ -95,19 +115,29 @@ export const AdminProtection: React.FC<AdminProtectionProps> = ({
               </div>
 
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <div
+                  className={`border px-4 py-3 rounded-lg ${
+                    failedAttempts >= 3
+                      ? "bg-red-100 border-red-400 text-red-800"
+                      : "bg-red-50 border-red-200 text-red-700"
+                  }`}
+                >
                   {error}
                 </div>
               )}
 
-              <Button type="submit" className="w-full cursor-pointer">
-                Submit
+              <Button
+                type="submit"
+                disabled={showDontVoc}
+                className="w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {showDontVoc ? "Wait..." : "Submit"}
               </Button>
             </form>
           </div>
         </div>
 
-        <DontVooc shouldShow={showFullscreen} />
+        <DontVoc shouldShow={showFullscreen || showDontVoc} />
       </>
     );
   }

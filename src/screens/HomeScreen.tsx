@@ -1,6 +1,6 @@
 import React from "react";
-import { DontVooc } from "../components/ui/DontVooc";
 import { useVocCode } from "../hooks/useVocCode";
+import { DontVoc } from "../components/ui/DontVooc";
 
 export const HomeScreen: React.FC = () => {
   const { handleTextClick, showFullscreen } = useVocCode();
@@ -25,7 +25,7 @@ export const HomeScreen: React.FC = () => {
         </div>
       </div>
 
-      <DontVooc shouldShow={showFullscreen} />
+      <DontVoc shouldShow={showFullscreen} />
     </>
   );
 };

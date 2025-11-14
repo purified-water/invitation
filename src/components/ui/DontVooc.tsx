@@ -1,8 +1,8 @@
-interface DontVoocProps {
+interface DontVocProps {
   shouldShow: boolean;
 }
 
-export const DontVooc = ({ shouldShow }: DontVoocProps) => {
+export const DontVoc = ({ shouldShow }: DontVocProps) => {
   if (!shouldShow) return null;
 
   return (
