@@ -95,6 +95,16 @@ export const InvitationTemplate: React.FC<InvitationTemplateProps> = ({
             )}
           </div>
 
+          {/* Location */}
+          {invitation.location && (
+            <div
+              className="text-xl mb-8"
+              style={{ color: template.colors.secondary }}
+            >
+              Location: {invitation.location}
+            </div>
+          )}
+
           {/* Description */}
           {invitation.description && (
             <div

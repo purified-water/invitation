@@ -7,6 +7,7 @@ import {
   UserIcon,
   DocumentDuplicateIcon,
   PencilIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/outline";
 import { format } from "date-fns";
 import type { Invitation } from "../types";
@@ -88,6 +89,13 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
             {invitation.eventTime && ` at ${invitation.eventTime}`}
           </span>
         </div>
+
+        {invitation.location && (
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <MapPinIcon className="h-4 w-4 shrink-0 text-gray-400" />
+            <span>{invitation.location}</span>
+          </div>
+        )}
 
         <div className="text-xs text-gray-400">
           Created {formatDate(invitation.createdAt)}

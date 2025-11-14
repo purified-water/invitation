@@ -5,6 +5,7 @@ import {
   Textarea,
   LoadingScreen,
   LoadingSpinner,
+  Checkbox,
 } from "../components/ui";
 import { templates } from "../utils/templates";
 import { invitationService } from "../services/invitationService";
@@ -25,6 +26,7 @@ export const EditInvitationScreen: React.FC = () => {
     eventDate: "",
     eventTime: "",
     description: "",
+    isSpecial: false,
   });
 
   useEffect(() => {
@@ -43,6 +45,8 @@ export const EditInvitationScreen: React.FC = () => {
             eventDate: invitation.eventDate,
             eventTime: invitation.eventTime || "",
             description: invitation.description || "",
+            location: invitation.location || "",
+            isSpecial: invitation.isSpecial || false,
           });
         } else {
           alert("Invitation not found");
@@ -67,10 +71,10 @@ export const EditInvitationScreen: React.FC = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target as HTMLInputElement;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -186,12 +190,28 @@ export const EditInvitationScreen: React.FC = () => {
               />
             </div>
 
+            <Input
+              label="Location (Optional)"
+              name="location"
+              value={formData.location}
+              onChange={handleInputChange}
+              placeholder="e.g., Nha toi"
+            />
+
             <Textarea
               label="Description (Optional)"
               name="description"
               value={formData.description}
               onChange={handleInputChange}
               placeholder="Additional details about the event..."
+            />
+
+            <Checkbox
+              label="Special Invitation"
+              name="isSpecial"
+              checked={formData.isSpecial || false}
+              onChange={handleInputChange}
+              description="Mark this as a special invitation for enhanced styling and features"
             />
 
             <div className="pt-4 flex gap-4">

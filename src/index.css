@@ -1,4 +1,68 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
+/* Custom colors for Tailwind v4 */
+:root {
+  --color-salmon: #ff7e70;
+  --color-salmon-light: #ff9f94; 
+  --color-salmon-pink: #ff91a4;
+  --color-salmon-pink-light: #ffb3c1;
+  --color-dark-gray: #494f5d;
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-salmon { color: var(--color-salmon); }
+  .text-salmon-light { color: var(--color-salmon-light); }
+  .text-salmon-pink { color: var(--color-salmon-pink); }
+  .text-salmon-pink-light { color: var(--color-salmon-pink-light); }
+  .text-dark-gray { color: var(--color-dark-gray); }
+  
+  .bg-salmon { background-color: var(--color-salmon); }
+  .bg-salmon-light { background-color: var(--color-salmon-light); }
+  .bg-salmon-pink { background-color: var(--color-salmon-pink); }
+  .bg-salmon-pink-light { background-color: var(--color-salmon-pink-light); }
+  .bg-dark-gray { background-color: var(--color-dark-gray); }
+  
+  .border-salmon { border-color: var(--color-salmon); }
+  .border-salmon-light { border-color: var(--color-salmon-light); }
+  .border-salmon-pink { border-color: var(--color-salmon-pink); }
+  .border-dark-gray { border-color: var(--color-dark-gray); }
+  
+  .from-salmon { --tw-gradient-from: var(--color-salmon) var(--tw-gradient-from-position); }
+  .from-salmon-light { --tw-gradient-from: var(--color-salmon-light) var(--tw-gradient-from-position); }
+  .from-salmon-pink { --tw-gradient-from: var(--color-salmon-pink) var(--tw-gradient-from-position); }
+  
+  .to-salmon { --tw-gradient-to: var(--color-salmon) var(--tw-gradient-to-position); }
+  .to-salmon-light { --tw-gradient-to: var(--color-salmon-light) var(--tw-gradient-to-position); }
+  .to-salmon-pink { --tw-gradient-to: var(--color-salmon-pink) var(--tw-gradient-to-position); }
+  
+  .via-salmon { --tw-gradient-via: var(--color-salmon) var(--tw-gradient-via-position); }
+  .via-salmon-light { --tw-gradient-via: var(--color-salmon-light) var(--tw-gradient-via-position); }
+  .via-salmon-pink { --tw-gradient-via: var(--color-salmon-pink) var(--tw-gradient-via-position); }
+  
+  .font-serif { font-family: 'Crimson Text', serif; }
+  
+  /* Envelope floating animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Fade in animation for invitation reveal */
+  @keyframes fade-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .animate-in {
+    animation: fade-in 1s ease-out;
+  }
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

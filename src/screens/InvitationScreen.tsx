@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { InvitationTemplate } from "../components/templates/InvitationTemplate";
+import { InvitationManager } from "../components/templates/InvitationManager";
 import { LoadingScreen } from "../components/ui";
 import { invitationService } from "../services/invitationService";
 import type { Invitation } from "../types";
@@ -64,5 +64,5 @@ export const InvitationScreen: React.FC = () => {
     );
   }
 
-  return <InvitationTemplate invitation={invitation} />;
+  return <InvitationManager invitation={invitation} />;
 };

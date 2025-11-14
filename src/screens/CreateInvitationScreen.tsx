@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, LoadingSpinner, Textarea } from "../components/ui";
+import {
+  Button,
+  Input,
+  LoadingSpinner,
+  Textarea,
+  Checkbox,
+} from "../components/ui";
 import { templates } from "../utils/templates";
 import { invitationService } from "../services/invitationService";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -16,8 +22,10 @@ export const CreateInvitationScreen: React.FC = () => {
     template: "birthday",
     recipientName: "",
     eventDate: "",
+    location: "",
     eventTime: "",
     description: "",
+    isSpecial: false,
   });
   const [generatedLink, setGeneratedLink] = useState<string>("");
 
@@ -33,6 +41,7 @@ export const CreateInvitationScreen: React.FC = () => {
         eventDate: cloneData.eventDate,
         eventTime: cloneData.eventTime || "",
         description: cloneData.description || "",
+        isSpecial: cloneData.isSpecial || false,
       });
     }
   }, [location.state]);
@@ -42,10 +51,10 @@ export const CreateInvitationScreen: React.FC = () => {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target as HTMLInputElement;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -83,6 +92,7 @@ export const CreateInvitationScreen: React.FC = () => {
       eventDate: "",
       eventTime: "",
       description: "",
+      isSpecial: false,
     });
     setGeneratedLink("");
   };
@@ -242,12 +252,28 @@ export const CreateInvitationScreen: React.FC = () => {
               />
             </div>
 
+            <Input
+              label="Location (Optional)"
+              name="location"
+              value={formData.location}
+              onChange={handleInputChange}
+              placeholder="e.g., Nha toi"
+            />
+
             <Textarea
               label="Description (Optional)"
               name="description"
               value={formData.description}
               onChange={handleInputChange}
               placeholder="Additional details about the event..."
+            />
+
+            <Checkbox
+              label="Special Invitation"
+              name="isSpecial"
+              checked={formData.isSpecial || false}
+              onChange={handleInputChange}
+              description="Mark this as a special invitation for enhanced styling and features"
             />
 
             <div className="pt-4">

@@ -15,6 +15,8 @@ export interface Invitation {
   eventDate: string;
   eventTime?: string;
   description?: string;
+  location?: string;
+  isSpecial?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -24,9 +26,11 @@ export interface InvitationFormData {
   subtitle?: string;
   template: TemplateType;
   recipientName?: string;
+  location?: string;
   eventDate: string;
   eventTime?: string;
   description?: string;
+  isSpecial?: boolean;
 }
 
 export interface Template {
