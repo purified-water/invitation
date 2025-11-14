@@ -1,9 +1,9 @@
 import React from "react";
 import { DontVooc } from "../components/ui/DontVooc";
-import { useVoocCode } from "../hooks/useVoocCode";
+import { useVocCode } from "../hooks/useVocCode";
 
 export const HomeScreen: React.FC = () => {
-  const { handleTextClick, showFullscreen } = useVoocCode();
+  const { handleTextClick, showFullscreen } = useVocCode();
 
   return (
     <>
@@ -21,7 +21,7 @@ export const HomeScreen: React.FC = () => {
             }
           }}
         >
-          Đừng có đi voọc
+          Đừng có đi vọc
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { Button, Input, LoadingScreen } from "./ui";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { useVoocCode } from "../hooks/useVoocCode";
+import { useVocCode } from "../hooks/useVocCode";
 import { DontVooc } from "./ui/DontVooc";
 
 interface AdminProtectionProps {
@@ -17,7 +17,7 @@ export const AdminProtection: React.FC<AdminProtectionProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const { handleTextClick, showFullscreen } = useVoocCode();
+  const { handleTextClick, showFullscreen } = useVocCode();
 
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
   const AUTH_COOKIE = "admin_authenticated";
@@ -65,7 +65,7 @@ export const AdminProtection: React.FC<AdminProtectionProps> = ({
                 className="text-3xl font-bold text-gray-900 mb-2 hover:text-red-500 cursor-pointer"
                 onClick={handleTextClick}
               >
-                Đừng đi voọc
+                Đừng đi vọc
               </h2>
             </div>
 

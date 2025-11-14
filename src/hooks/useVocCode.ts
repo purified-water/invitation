@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useVoocCode = () => {
+export const useVocCode = () => {
   const [showFullscreen, setShowFullscreen] = useState(false);
 
   const handleTextClick = () => {
