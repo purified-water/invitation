@@ -40,6 +40,7 @@ export const CreateInvitationScreen: React.FC = () => {
         recipientName: cloneData.recipientName || "",
         eventDate: cloneData.eventDate,
         eventTime: cloneData.eventTime || "",
+        location: cloneData.location || "",
         description: cloneData.description || "",
         isSpecial: cloneData.isSpecial || false,
       });

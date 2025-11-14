@@ -1,6 +1,7 @@
 import React from "react";
 import type { Invitation } from "../../types";
 import { Divider } from "../ui/Divider";
+import { AddToCalendar } from "../ui/AddToCalendar";
 import { formatVietnameseDate, formatEnglishTime } from "../../utils";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 
@@ -16,12 +17,16 @@ export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
     <div
       className={`min-h-screen flex items-center justify-center p-4 py-8 ${
         invitation.isSpecial
-          ? "bg-linear-to-br from-orange-100 via-pink-100 to-amber-100"
-          : "bg-linear-to-br from-orange-50 to-blue-50"
+          ? "bg-linear-to-br from-orange-100 via-pink-50 to-purple-50"
+          : "bg-linear-to-br from-orange-50 to-purple-50"
       }`}
     >
       {/* The Invitation "Paper" */}
-      <div className="relative max-w-lg md:max-w-3xl w-full bg-white rounded-3xl shadow-md lg:shadow-2xl p-6 md:p-16 font-serif ">
+      <div
+        className={`relative max-w-lg md:max-w-3xl w-full bg-white rounded-3xl shadow-md lg:shadow-2xl p-6 md:p-16 font-serif ${
+          invitation.isSpecial ? "ring-1 ring-amber-100" : ""
+        }`}
+      >
         {/* Silly Stickers Layer
           Refined sizes: smaller on mobile, larger on desktop
         */}
@@ -122,10 +127,10 @@ export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
 
           {/* Footer Message */}
           {/* Cleaned up redundant margin class */}
-          <div className="text-center mt-10 md:mt-12">
-            <div className={`pt-8`}>
+          <div className="text-center mt-4 md:mt-8">
+            <>
               <p
-                className={`text-lg md:text-xl font-light italic tracking-wide leading-relaxed ${
+                className={`text-lg md:text-xl font-light italic tracking-wide leading-relaxed mb-4 ${
                   invitation.isSpecial
                     ? "text-transparent bg-clip-text bg-linear-to-r from-pink-500 to-orange-200"
                     : "text-salmon"
@@ -135,7 +140,10 @@ export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
                   ? "T mong m tới đó :)))"
                   : "Rất mong được gặp bạn tại buổi lễ!"}
               </p>
-            </div>
+
+              {/* Add to Calendar Button */}
+              <AddToCalendar invitation={invitation} className="mx-auto" />
+            </>
           </div>
         </div>
       </div>

@@ -77,6 +77,8 @@ export const AdminScreen: React.FC = () => {
           eventDate: invitation.eventDate,
           eventTime: invitation.eventTime,
           description: invitation.description,
+          location: invitation.location,
+          isSpecial: invitation.isSpecial || false,
         },
       },
     });
