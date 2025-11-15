@@ -199,7 +199,7 @@ export const CreateInvitationScreen: React.FC = () => {
               required
             />
 
-            <Input
+            <Textarea
               label="Subtitle (Optional)"
               name="subtitle"
               value={formData.subtitle}

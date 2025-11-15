@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Invitation } from "../../types";
 import { Divider } from "../ui/Divider";
 import { AddToCalendar } from "../ui/AddToCalendar";
+import { SpeechBubble } from "../ui/SpeechBubble";
 import { formatVietnameseDate, formatEnglishTime } from "../../utils";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 
@@ -12,6 +13,25 @@ interface GraduationInvitationProps {
 export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
   invitation,
 }) => {
+  const [showSpeechBubble, setShowSpeechBubble] = useState(false);
+  const [showSuki2SpeechBubble, setShowSuki2SpeechBubble] = useState(false);
+
+  const handleSuki1Click = () => {
+    setShowSpeechBubble(true);
+    // Hide the speech bubble after 5 seconds
+    setTimeout(() => {
+      setShowSpeechBubble(false);
+    }, 5000);
+  };
+
+  const handleSuki2Click = () => {
+    setShowSuki2SpeechBubble(true);
+    // Hide the speech bubble after 5 seconds
+    setTimeout(() => {
+      setShowSuki2SpeechBubble(false);
+    }, 5000);
+  };
+
   return (
     // Page Background
     <div
@@ -30,16 +50,38 @@ export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
         {/* Silly Stickers Layer
           Refined sizes: smaller on mobile, larger on desktop
         */}
-        <img
-          src={invitation.isSpecial ? "/suki2.png" : "/enjoy.gif"}
-          alt="Sticker"
-          className="absolute -top-6 -left-4 size-16 md:-top-8 md:-left-6 md:size-20 lg:size-24 object-contain -rotate-15 drop-shadow-lg"
-        />
-        <img
-          src={invitation.isSpecial ? "/suki1.png" : "/enjoy.gif"}
-          alt="Sticker"
-          className="absolute -bottom-6 -right-4 size-16 md:-bottom-8 md:-right-6 md:size-20 lg:size-24 object-contain rotate-15 drop-shadow-lg"
-        />
+        <div className="absolute -top-6 -left-4 md:-top-8 md:-left-6">
+          <img
+            src={invitation.isSpecial ? "/suki2.png" : "/enjoy.gif"}
+            alt="Sticker"
+            className="size-16 md:size-20 lg:size-24 object-contain -rotate-15 drop-shadow-lg hover:scale-110 transition-transform duration-200 cursor-pointer"
+            onClick={invitation.isSpecial ? handleSuki2Click : undefined}
+          />
+          {invitation.isSpecial && (
+            <SpeechBubble
+              text="You are my special guest"
+              isVisible={showSuki2SpeechBubble}
+              position="bottom"
+              onComplete={() => {}}
+            />
+          )}
+        </div>
+        <div className="absolute -bottom-6 -right-4 md:-bottom-8 md:-right-6">
+          <img
+            src={invitation.isSpecial ? "/suki1.png" : "/enjoy.gif"}
+            alt="Sticker"
+            className="size-16 md:size-20 lg:size-24 object-contain rotate-15 drop-shadow-lg hover:scale-110 transition-transform duration-200 cursor-pointer"
+            onClick={invitation.isSpecial ? handleSuki1Click : undefined}
+          />
+          {invitation.isSpecial && (
+            <SpeechBubble
+              text="You are my surprise"
+              isVisible={showSpeechBubble}
+              position="top"
+              onComplete={() => {}}
+            />
+          )}
+        </div>
 
         {/* --- Main Content Flow --- */}
         <div className="relative z-10">
@@ -48,7 +90,7 @@ export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
             {invitation.recipientName && (
               <div className="mb-4">
                 <p className="text-base font-light tracking-widest uppercase text-dark-gray opacity-80 letterspacing-wide">
-                  {invitation.isSpecial ? "Thân thân thân gửi" : "Thân gửi"}
+                  {invitation.isSpecial ? "Haiiii" : "Thân gửi"}
                 </p>
                 {/* Scaled text: text-3xl on mobile, md:text-5xl on desktop */}
                 <h2

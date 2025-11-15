@@ -27,7 +27,11 @@
   .border-salmon-light { border-color: var(--color-salmon-light); }
   .border-salmon-pink { border-color: var(--color-salmon-pink); }
   .border-dark-gray { border-color: var(--color-dark-gray); }
-  
+  .border-t-salmon-pink { border-top-color: var(--color-salmon-pink); }
+  .border-b-salmon-pink { border-bottom-color: var(--color-salmon-pink); }
+  .border-l-salmon-pink { border-left-color: var(--color-salmon-pink); }
+  .border-r-salmon-pink { border-right-color: var(--color-salmon-pink); }
+
   .from-salmon { --tw-gradient-from: var(--color-salmon) var(--tw-gradient-from-position); }
   .from-salmon-light { --tw-gradient-from: var(--color-salmon-light) var(--tw-gradient-from-position); }
   .from-salmon-pink { --tw-gradient-from: var(--color-salmon-pink) var(--tw-gradient-from-position); }

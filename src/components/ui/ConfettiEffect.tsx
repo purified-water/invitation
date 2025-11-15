@@ -43,7 +43,7 @@ export const ConfettiEffect: React.FC<ConfettiEffectProps> = ({
     if (show && onComplete) {
       const timer = setTimeout(() => {
         onComplete();
-      }, 5000);
+      }, 7000);
 
       return () => clearTimeout(timer);
     }
@@ -66,14 +66,12 @@ export const ConfettiEffect: React.FC<ConfettiEffectProps> = ({
               "#a855f7", // purple-500
               "#ec4899", // pink-500
               "#f59e0b", // amber-500
-              "#10b981", // emerald-500
             ]
           : [
               "#ff7e70", // salmon
               "#ff91a4", // salmon-pink
               "#ff9f94", // salmon-light
               "#ffb3c1", // salmon-pink-light
-              "#fbbf24", // yellow-400
               "#f59e0b", // amber-500
               "#fb7185", // rose-400
             ]

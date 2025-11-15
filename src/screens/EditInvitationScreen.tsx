@@ -136,7 +136,7 @@ export const EditInvitationScreen: React.FC = () => {
               required
             />
 
-            <Input
+            <Textarea
               label="Subtitle (Optional)"
               name="subtitle"
               value={formData.subtitle}
