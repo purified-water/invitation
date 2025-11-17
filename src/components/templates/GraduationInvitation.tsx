@@ -185,6 +185,14 @@ export const GraduationInvitation: React.FC<GraduationInvitationProps> = ({
 
               {/* Add to Calendar Button */}
               <AddToCalendar invitation={invitation} className="mx-auto" />
+
+              <p
+                className={`text-md md:text-base mt-4 font-light italic leading-relaxed text-gray-400`}
+              >
+                Thông tin liên hệ: 037.389.3504. Mọi người có thể giữ xe ở
+                NOWZONE Fashion Mall, 235 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh,
+                Q.1
+              </p>
             </>
           </div>
         </div>
