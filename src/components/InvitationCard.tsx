@@ -63,7 +63,7 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
             {getTemplateEmoji(invitation.template)}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 text-lg truncate">
+            <h3 className="font-semibold text-gray-900 text-lg line-clamp-2">
               {invitation.title}
             </h3>
             {invitation.subtitle && (
@@ -78,8 +78,8 @@ export const InvitationCard: React.FC<InvitationCardProps> = ({
       {/* Thông tin chi tiết */}
       <div className="space-y-3 mb-5">
         {invitation.recipientName && (
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <UserIcon className="h-4 w-4 text-gray-400" />
+          <div className="flex items-center gap-2 text-sm font-medium text-gray-800">
+            <UserIcon className="h-4 w-4" />
             <span>For: {invitation.recipientName}</span>
           </div>
         )}
